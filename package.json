@@ -1,13 +1,10 @@
 {
-  "name": "NovelCOVID-API",
+  "name": "CoronaCasesAPI",
   "version": "1.0.1",
   "description": "A simple Node API for getting coronavirus cases from scraped information.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
-  },
-"engines": {
-    "node": "12.16.x"
   }
   ,
   "dependencies": {
@@ -18,7 +15,7 @@
     "quick.db": "^6.3.2"
   },
   "repository": {
-    "url": "https://github.com/NovelCOVID/API"
+    "url": "https://github.com/btbatson/CoronaCasesAPI"
   },
   "license": "MIT",
   "keywords": [
