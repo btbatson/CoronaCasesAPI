@@ -1,0 +1,12 @@
+{
+  "redis": {
+    "host": "redis-11321.c85.us-east-1-2.ec2.cloud.redislabs.com:11321",
+    "password": "dsgkfOfrT2a5vL34aI1ptH7HeqX1fPZI"
+  },
+  "keys": {
+    "all": "covidapi:all",
+    "countries": "coviapi:countries"
+  },
+  "port": 8080,
+  "interval": 600000
+}
