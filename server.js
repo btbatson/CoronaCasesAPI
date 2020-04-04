@@ -66,7 +66,7 @@ var getcountries = setInterval(async () => {
     .children("td");
 
   // NOTE: this will change when table format change in website
-  const totalColumns = 12;
+ const totalColumns = 10;
   const countryColIndex = 0;
   const casesColIndex = 1;
   const todayCasesColIndex = 2;
@@ -77,8 +77,6 @@ var getcountries = setInterval(async () => {
   const criticalColIndex = 7;
   const casesPerOneMillionColIndex = 8;
   const deathsPerOneMillionColIndex = 9;
-  const totalTestsColIndex = 10;
-  const testsPerOneMillionColIndex = 11;
 
   // minus totalColumns to skip last row, which is total
   for (let i = 0; i < countriesTableCells.length - totalColumns; i += 1) {
@@ -164,30 +162,6 @@ var getcountries = setInterval(async () => {
         10
       );
     }
-    // get total deaths per one million population
-    if (i % totalColumns === deathsPerOneMillionColIndex) {
-      let deathsPerOneMillion = cell.children.length != 0? cell.children[0].data : "";
-      result[result.length - 1].deathsPerOneMillion = parseInt(
-        deathsPerOneMillion.trim().replace(/,/g, "") || "0",
-        10
-      );
-    }
-    // get total tests
-    if (i % totalColumns === totalTestsColIndex) {
-      let totalTests = cell.children.length != 0? cell.children[0].data : "";
-      result[result.length - 1].totalTests = parseInt(
-        totalTests.trim().replace(/,/g, "") || "0",
-        10
-      );
-    }
-    // get tests per one million population
-    if (i % totalColumns === testsPerOneMillionColIndex) {
-      let testsPerOneMillion = cell.children.length != 0? cell.children[0].data : "";
-      result[result.length - 1].testsPerOneMillion = parseInt(
-        testsPerOneMillion.trim().replace(/,/g, "") || "0",
-        10
-      );
-    }
   }
 
   db.set("countries", result);
@@ -218,12 +192,8 @@ app.get("/countries/", async function(req, res) {
 app.get("/countries/:country", async function(req, res) {
   let countries = await db.fetch("countries");
   let country = countries.find(
-    e => {
-          if(e.country.toLowerCase().localeCompare(req.params.country.toLowerCase()) === 0)
-          {
-            return true;
-          }
-    });
+    e => e.country.toLowerCase().includes(req.params.country.toLowerCase())
+  );
   if (!country) {
     res.send("Country not found");
     return;
