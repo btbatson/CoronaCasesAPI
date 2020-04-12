@@ -65,10 +65,10 @@ var getcountries = setInterval(async () => {
     .children("tr")
     .children("td");
 
-  // NOTE: this will change when table format change in website
-const colCount = html('table#main_table_countries_today th').length;
-
-   const totalColumns = colCount;
+  // count worldometers table columns
+  const colCount = html('table#main_table_countries_today th').length;
+  
+  const totalColumns = colCount;
   const countryColIndex = 0;
   const casesColIndex = 1;
   const todayCasesColIndex = 2;
@@ -98,7 +98,7 @@ const colCount = html('table#main_table_countries_today th').length;
       country = country.trim();
       if (country.length === 0) {
         // parse with hyperlink
-        country = cell.children[0].next.children[0].data || "";
+        country = cell.children[0].next.children[0] && cell.children[0].next.children[0].data || "";
       }
       result.push({ country: country.trim() || "" });
     }
@@ -220,12 +220,12 @@ app.get("/countries/", async function(req, res) {
 app.get("/countries/:country", async function(req, res) {
   let countries = await db.fetch("countries");
   let country = countries.find(
-    e => {
-          if(e.country.toLowerCase().localeCompare(req.params.country.toLowerCase()) === 0)
-          {
+  	e => {
+        	if(e.country.toLowerCase().localeCompare(req.params.country.toLowerCase()) === 0)
+        	{
             return true;
           }
-    });
+  	});
   if (!country) {
     res.send("Country not found");
     return;
