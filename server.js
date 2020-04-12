@@ -66,18 +66,21 @@ var getcountries = setInterval(async () => {
     .children("td");
 
   // NOTE: this will change when table format change in website
+const colCount = html('table#main_table_countries_today th').length;
+
+   const totalColumns = colCount;
   const countryColIndex = 0;
-	const casesColIndex = 1;
-	const newCasesColIndex = 2;
-	const deathsColIndex = 3;
-	const newDeathsColIndex = 4;
-	const curedColIndex = 5;
-	const activeColIndex = 6;
-	const criticalColIndex = 7;
-	const casesPerOneMillionColIndex = 8;
-	const deathsPerOneMillionColIndex = 9;
-	const testsColIndex = 10;
-	const testsPerOneMillionColIndex = 11;
+  const casesColIndex = 1;
+  const todayCasesColIndex = 2;
+  const deathsColIndex = 3;
+  const todayDeathsColIndex = 4;
+  const curedColIndex = 5;
+  const activeColIndex = 6;
+  const criticalColIndex = 7;
+  const casesPerOneMillionColIndex = 8;
+  const deathsPerOneMillionColIndex = 9;
+  const totalTestsColIndex = 10;
+  const testsPerOneMillionColIndex = 11;
 
   // minus totalColumns to skip last row, which is total
   for (let i = 0; i < countriesTableCells.length - totalColumns; i += 1) {
